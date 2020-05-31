@@ -616,8 +616,8 @@ io.sockets.on('connection', function(socket){
         }
         /* if the wrong socket is playing the color */
         if(
-            ((game.whose_turn === 'white') && (game.player_white.sockets !== socket.id)) || 
-            ((game.whose_turn === 'black') && (game.player_black.sockets !== socket.id))
+            ((game.whose_turn === 'white') && (game.player_white.socket !== socket.id)) || 
+            ((game.whose_turn === 'black') && (game.player_black.socket !== socket.id))
         ){
             var error_message = 'play_token turn played by wrong player';
             log(error_message);
