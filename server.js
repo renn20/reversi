@@ -590,6 +590,7 @@ io.sockets.on('connection', function(socket){
             });
             return
         }
+        /* get game state*/
 
         var game = games[game_id];
         if (('underfined' === typeof game) || !game){
@@ -602,9 +603,36 @@ io.sockets.on('connection', function(socket){
             return
         }
 
+        /* if current attempt is out of turn then error */
+
+        if(color !== game.whose_turn){
+            var error_message = 'play_token message played out of turn';
+            log(error_message);
+            socket.emit('play_token_response', {
+                result: 'fail',
+                message: error_message
+            });
+            return
+        }
+        /* if the wrong socket is playing the color */
+        if(
+            ((game.whose_turn === 'white') && (game.player_white.sockets !== socket.id)) || 
+            ((game.whose_turn === 'black') && (game.player_black.sockets !== socket.id))
+        ){
+            var error_message = 'play_token turn played by wrong player';
+            log(error_message);
+            socket.emit('play_token_response', {
+                result: 'fail',
+                message: error_message
+            });
+            return;
+        }
+
         var success_data = {
             result: 'success'
         };
+
+
         socket.emit ('play_token_reponse', success_data);
         /* execute the move */
         if (color === 'white') {
@@ -641,7 +669,7 @@ function create_new_game(){
     var d = new Date();
     new_game.last_move_time = d.getTime();
 
-    new_game.whose_turn = 'white';
+    new_game.whose_turn = 'black';
     new_game.board = [
                         [' ',' ',' ',' ',' ',' ',' ',' '],
                         [' ',' ',' ',' ',' ',' ',' ',' '],
@@ -693,6 +721,7 @@ function send_game_update(socket, game_id, message) {
     /* if the current player isnt assigned a color */
     if((games[game_id].player_white.socket !== socket.id) && (games[game_id].player_black.socket !== socket.id)) {
         console.log ('player is not assigned a color: ' + socket.id);
+        /* and there isn't a color to give them */
         if ((games[game_id].player_black.socket !== '') && (games[game_id].player_white.socket !== '')) {
             games[game_id].player_white.socket = '';
             games[game_id].player_white.username = '';
@@ -702,13 +731,13 @@ function send_game_update(socket, game_id, message) {
     }
 
     /* assign color to players if not done */
-    if (games[game_id].player_white.socket == '') {
+    if (games[game_id].player_white.socket === '') {
         if(games[game_id].player_black.socket !== socket.id) {
             games[game_id].player_white.socket = socket.id;
             games[game_id].player_white.username = players[socket.id].username;
         }
     }
-    if (games[game_id].player_black.socket == '') {
+    if (games[game_id].player_black.socket === '') {
         if(games[game_id].player_white.socket !== socket.id) {
             games[game_id].player_black.socket = socket.id;
             games[game_id].player_black.username = players[socket.id].username;

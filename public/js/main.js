@@ -282,12 +282,12 @@ socket.on('game_update', function(payload){
     }
     /* check for a good board in the payload*/
     var board = payload.game.board;
-    if('undefined' == typeof board || !board) {
+    if('undefined' === typeof board || !board) {
         console.log('received a malformed board update from the server');
         return;
     }
     /* update my color*/
-    if(socket.id == payload.game.player_white.socket) {
+    if(socket.id === payload.game.player_white.socket) {
         my_color = 'white';
     } else if (socket.id == payload.game.player_black.socket) {
         my_color = 'black';
@@ -299,6 +299,9 @@ socket.on('game_update', function(payload){
     }
 
     $('#my_color').html('<h3 id="my_color">I am ' + my_color + '</h3>');
+    $('#my_color').append('<h4>It is ' + payload.game.whose_turn + '\'s turn</h4>');
+
+
 
     /* animate changes to the board */
     var  blacksum = 0;
@@ -374,6 +377,7 @@ socket.on('game_update', function(payload){
 
 socket.on('play_token_response', function(payload){
     console.log('*** Client Log Message: \'play_token_response\' payload: '+JSON.stringify(payload));
+    //console.log('this is ' + socket.id + ' ' + my_color + ' ');
     /* check for good play token response  */
     if(payload.result === 'fail') {
         console.log(payload.message);
