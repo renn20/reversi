@@ -347,10 +347,13 @@ socket.on('game_update', function(payload){
                 else {
                     $('#' + row + '_' + column).html('<img src="assets/images/error.gif" alt="error"/>');
                 }
-
-                /* set up interactivities*/
-                $('#' + row + '_' + column).off('click');
-                if(board[row][column] == ' '){
+            }
+            /* set up interactivities*/
+            $('#' + row + '_' + column).off('click');
+            $('#' + row + '_' + column).removeClass('hovered_over');
+            //console.log(my_color.substr(0,1));
+            if(payload.game.whose_turn === my_color){
+               if(payload.game.legal_moves[row][column] === my_color.substr(0,1)){
                     $('#' + row + '_' + column).addClass('hovered_over');
                     $('#' + row + '_' + column).click(function(r,c){
                         return function () {
@@ -362,9 +365,6 @@ socket.on('game_update', function(payload){
                             socket.emit('play_token', payload);
                         };
                     }(row,column));
-                }
-                else {
-                    $('#' + row + '_' + column).removeClass('hovered_over');
                 }
             }
         }
