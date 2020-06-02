@@ -765,7 +765,7 @@ function calculate_valid_moves(who, board){
 
     for (var row = 0; row < 8; row ++){
         for(var column = 0; column < 8; column ++){
-            if (board[row][column] != ' '){
+            if (board[row][column] == ' '){
                 nw = valid_move(who, -1, -1, row, column, board);
                 nn = valid_move(who, -1, 0, row, column, board);
                 ne = valid_move(who, -1, 1, row, column, board);
