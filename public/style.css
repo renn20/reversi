@@ -1,28 +1,163 @@
-body {
-    background-color: lightgoldenrodyellow;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+html, body { 
+   height: 100%;
+   font-family: 'Roboto', sans-serif;
+   color: white;
+  }
+
+.players, .message-panel{
+    background: rgba(0, 0, 0, .75);
+    border: 1px solid white;
+    height: 100%;
+    padding: 10px;
 }
+.players.row {
+    height: 100%;
+    justify-content: flex-start;
+}
+
+.players-panel {
+    align-content: flex-start;
+}
+.message-panel {
+  
+}
+
+#messages {
+    height: 300px;
+    overflow-y: auto;
+}
+
+
+.main {
+    background-image: url(assets/images/top-splash.jpg);
+      /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-content: flex-start;
+    justify-content: center;
+    display: grid;
+
+    width: 100%;
+}
+
+.main.lobby {
+    background-image: url(assets/images/lobbybg.jpg);
+ 
+}
+
+.main.game {
+    background-image: url(assets/images/lobbybg.jpg);
+
+}
+.col.logo {
+    padding-top: 50px;
+    margin-bottom: 50px;
+}
+
+
+
+
+.btn-main {
+    width: 150px;
+    border: 2px solid white;
+    border-radius: 5px;
+    background-color: #000000;
+    color: white;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    margin: 5px;
+}
+.btn-main:hover {
+    color: magenta;
+    border-color: magenta;
+}
+
+.btn-main.invite, .btn-main.invited, .btn-main.play  {
+    width: 80px;
+    height: 30px;
+    border-width: 1px;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.btn-main.play {
+    border-color: yellowgreen;
+    color: yellowgreen;
+}
+
+.btn-main.invited {
+    border-color: skyblue;
+    color: skyblue;
+}
+
+.play-list-item {
+    align-items: center;
+}
+
+.btn-main.msg {
+    width: 70px;
+    margin: 0px;
+}
+
+.username {
+    height: 50px;
+    
+}
+.form-control {
+    background-color: rgba(0, 0, 0, 35);
+    font-family: roboto;
+    font-weight: bold;
+    color: white;
+    border-radius: 0;
+}
+.form-control:focus {
+    background-color: black;
+    border-color: magenta;
+    color:white;
+}
+
 .link-panel {
     background-color: black;
     padding: 10px;
 }
 table#game_board {
     margin: auto;
-    background-color: white;;
+    background-color:rgba(0, 0, 0, 1);
 }
 
 table#game_board td {
     padding: 5px;
-    border: 1px solid black;
-    height: 75px;
-    width: 75px;
+    border: 1px solid rgba(255, 255,255, .1);
+   
 }
 
+table#game_board img {
+    height: 30px;
+    width: 30px;    
+}
+
+#messages {
+    display: flex;
+    flex-direction: column-reverse;
+}
 #message p {
     margin: 0px;
 }
 
 td.hovered_over:hover {
-   background-image: url('assets/images/hover.gif');
     background-size: 100% 100%;
-    box-shadow: pink inset 0px 0px 0px 5px;
+    box-shadow: cyan inset 0px 0px 0px 5px;
+}
+
+.info {
+    background-color: rgba(0, 0, 0, .75);
+    padding: 10px;
+    margin-bottom: 20px;
 }

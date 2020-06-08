@@ -53,23 +53,23 @@ socket.on('join_room_response', function(payload){
         nodeC.addClass('socket_' + payload.socket_id);
 
 
-        nodeA.addClass('w-100');
+       
+        nodeB.addClass('col text-left play-name');
+        nodeB.append(payload.username);
 
-        nodeB.addClass('col-9 text-right');
-        nodeB.append('<h4>' + payload.username + '</h4>');
-
-        nodeC.addClass('col-3 text-left');
+        nodeC.addClass('col text-right');
         var buttonC = makeInviteButton(payload.socket_id);
         nodeC.append(buttonC);
 
         nodeA.hide();
-        nodeB.hide();
-        nodeC.hide();
+    
+        nodeA.addClass('row play-list-item')
+        nodeA.append(nodeB, nodeC);
 
-        $('#players').append(nodeA, nodeB, nodeC);
+
+        $('#players').append(nodeA);
         nodeA.slideDown(1000);
-        nodeB.slideDown(1000);
-        nodeC.slideDown(1000);
+
     } 
     /* if we hae seen the person who just joined (something wierd happend)*/
     else {
@@ -84,7 +84,7 @@ socket.on('join_room_response', function(payload){
     var newNode = $(newHTML);
     newNode.hide();
     $('#messages').prepend(newNode);
-    newNode.slideDown(1000);
+    newNode.show();
 });
 
 /* what to do when the server says someone has left */
@@ -110,8 +110,8 @@ socket.on('player_disconnected', function(payload){
     var newHTML = '<p>' + payload.username + ' just left the lobby</P>';
     var newNode = $(newHTML);
     newNode.hide();
-    $('#messages').append(newNode);
-    newNode.slideDown(1000);
+    $('#messages').prepend(newNode);
+    newNode.show();
 });
 
 /* send an invite message to the server */
@@ -207,16 +207,18 @@ socket.on('send_message_response', function(payload){
         alert(payload.message);
         return;
     }
-    var newHTML = '<p><b>' + payload.username + ' says:</b> ' + payload.message + '</p>';
+    var newHTML = '<p><b>' + payload.username + ' says:</b> ' +  payload.message + '</p>';
     var newNode = $(newHTML);
     newNode.hide();
+    
     $('#messages').prepend(newNode);
-    newNode.slideDown(1000);
+    newNode.show();
+
 });
 
 
 function makeInviteButton (socket_id) {
-    var newHTML = '<button type=\'button\' class=\'btn btn-outline-primary\'>Invite</button>';
+    var newHTML = '<button type=\'button\' class=\'btn btn-main invite\'>Invite</button>';
     var newNode = $(newHTML);
     newNode.click(function(){
         invite(socket_id);
@@ -225,7 +227,7 @@ function makeInviteButton (socket_id) {
 }
 
 function makeInvitedButton (socket_id) {
-    var newHTML = '<button type=\'button\' class=\'btn btn-primary\'>Invited</button>';
+    var newHTML = '<button type=\'button\' class=\'btn btn-main invited\'>Invited</button>';
     var newNode = $(newHTML);
     newNode.click(function(){
         uninvite(socket_id);
@@ -234,7 +236,7 @@ function makeInvitedButton (socket_id) {
 }
 
 function makePlayButton (socket_id) {
-    var newHTML = '<button type=\'button\' class=\'btn btn-success\'>play</button>';
+    var newHTML = '<button type=\'button\' class=\'btn btn-main play\'>play</button>';
     var newNode = $(newHTML);
     newNode.click(function(){
         game_start(socket_id);
@@ -298,9 +300,9 @@ socket.on('game_update', function(payload){
         window.location.href = 'lobby.html?username=' + username;
         return;
     }
-
-    $('#my_color').html('<h3 id="my_color">I am ' + my_color + '</h3>');
-    $('#my_color').append('<h4>It is ' + payload.game.whose_turn + '\'s turn. Elapsed time <span id="elapsed"></span></h4>');
+    
+    $('#my_color').html('<div id="my_color">I am ' + my_color + '</div>');
+    $('#my_color').append('<div>It is ' + payload.game.whose_turn + '\'s turn. Elapsed time <span id="elapsed"></span></div>');
     clearInterval(interval_timer);
     interval_timer = setInterval(function(last_time){
         return function(){
@@ -413,3 +415,5 @@ socket.on('game_over', function(payload){
     $('#game_over').html('<h1>game over</h1><h2>' + payload.who_won + ' won!</h2>');
     $('#game_over').append('<a href="lobby.html?username=' + username + '" class="btn btn-success btn-lg active" role="button" aria-pressed="true">Return to the lobby</a>');
 ;});
+
+

@@ -921,10 +921,10 @@ function send_game_update(socket, game_id, message) {
         /* send a game over message */
         var winner = 'tie game';
         if (black > white){
-            winner = 'black';
+            winner = 'Black';
         }
         if (white > black ){
-            winner = 'white';
+            winner = 'White';
         }
         var success_data = {
             result: 'success',

@@ -12,10 +12,16 @@
   <link rel="stylesheet" type="text/css" href="style.css"/>
   </head>
   <body>
-    <div class="container-fluid text-center">
+    <div class="container-fluid text-center main game">
+      <div class="row">
+        <div class="col text-center logo">
+          <img src="assets/images/logo.png" alt="REVERI"/>
+        </div>
+      </div>
+      <div class="info">
       <div class="row">
         <div class="offset-2 col text-center">
-          <h3 id="my_color"></h3>
+          <div id="my_color"></div>
         </div>
         <div class="col-2">
           <div id="quit"></div>
@@ -32,10 +38,18 @@
     
        <div class='row'>
          <div class='col' id='game_over'>
-
          </div>
        </div>
+       </div>
        <div class='row'>
+          <div class='col-6 message-panel text-left'>
+              <div id='messages'></div>
+           <form class="form-inline" onsubmit="send_message(); return false">
+                <label for="send_message_holder" class="col-form-label sr-only">Enter your chat message</label>
+                <input class="form-control mx-auto w-75" type="text" value="" id="send_message_holder" placeholder="Enter your Chat message" autocomplete="off"/>
+            <button type="submit" class="btn btn-default btn-main msg">Send</button>
+            </form>
+        </div>
          <div class='col'>
            <table id='game_board'>
              <tr>
@@ -119,25 +133,7 @@
               <td id='7_7'></td>
             </tr>
            </table>
-
          </div>
-       </div>
-
-        <div class="row">
-          <div class="col text-left">
-            <h3>messages</h3>
-             <form class="form-inline" onsubmit="send_message(); return false">
-                  <label for="send_message_holder" class="col-form-label sr-only">Enter your chat message</label>
-                  <input class="form-control mx-auto w-75" type="text" value="" id="send_message_holder" placeholder="Enter your Chat message" autocomplete="off"/>
-              <button type="submit" class="btn btn-default btn-primary">Send</button>
-              </form>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col text-left">
-              <div id="messages"></div>
-          </div>
         </div>
 
         
