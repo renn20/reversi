@@ -413,6 +413,7 @@ socket.on('game_over', function(payload){
     }
     /*jamp to a new page */
     $('#game_over').html('<h1>game over</h1><h2>' + payload.who_won + ' won!</h2>');
+    $('#elapsed').hide();
     $('#game_over').append('<a href="lobby.html?username=' + username + '" class="btn btn-success btn-lg active" role="button" aria-pressed="true">Return to the lobby</a>');
 ;});
 
