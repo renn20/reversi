@@ -322,7 +322,7 @@ socket.on('game_update', function(payload){
 
 
     /* animate changes to the board */
-    var  blacksum = 0;
+    var blacksum = 0;
     var purplesum = 0;
     var row, column;
     for (row = 0; row < 8; row ++){
