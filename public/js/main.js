@@ -290,8 +290,8 @@ socket.on('game_update', function(payload){
         return;
     }
     /* update my color*/
-    if(socket.id === payload.game.player_white.socket) {
-        my_color = 'white';
+    if(socket.id === payload.game.player_purple.socket) {
+        my_color = 'purple';
     } else if (socket.id == payload.game.player_black.socket) {
         my_color = 'black';
     } else {
@@ -323,43 +323,43 @@ socket.on('game_update', function(payload){
 
     /* animate changes to the board */
     var  blacksum = 0;
-    var whitesum = 0;
+    var purplesum = 0;
     var row, column;
     for (row = 0; row < 8; row ++){
         for(column = 0; column < 8; column ++){
             if(board[row][column] == 'b'){
                 blacksum ++;
             }
-            if(board[row][column] == 'w'){
-                whitesum ++;
+            if(board[row][column] == 'p'){
+                purplesum ++;
             }
             /* if a board space has changed */
             if (old_board[row][column] !=board [row][column]){
                 if(old_board[row][column] == '?' && board[row][column] == ' '){
                     $('#' + row + '_' + column).html('<img src="assets/images/empty.png" alt="empty Sqaure"/>');
                 }
-                else if(old_board[row][column] == '?' && board[row][column] == 'w'){
-                    $('#' + row + '_' + column).html('<img src="assets/images/emptytowhite.gif" alt="white Sqaure"/>');
+                else if(old_board[row][column] == '?' && board[row][column] == 'p'){
+                    $('#' + row + '_' + column).html('<img src="assets/images/emptytowhite.gif" alt="purple Sqaure"/>');
                 }
                 else if(old_board[row][column] == '?' && board[row][column] == 'b'){
                     $('#' + row + '_' + column).html('<img src="assets/images/emptytoblack.gif" alt="black Sqaure"/>');
                 }
-                else if(old_board[row][column] == ' ' && board[row][column] == 'w'){
-                    $('#' + row + '_' + column).html('<img src="assets/images/emptytowhite.gif" alt="white Sqaure"/>');
+                else if(old_board[row][column] == ' ' && board[row][column] == 'p'){
+                    $('#' + row + '_' + column).html('<img src="assets/images/emptytowhite.gif" alt="purple Sqaure"/>');
                 }
                 else if(old_board[row][column] == ' ' && board[row][column] == 'b'){
                     $('#' + row + '_' + column).html('<img src="assets/images/emptytoblack.gif" alt="black Sqaure"/>');
                 }
-                else if(old_board[row][column] == 'w' && board[row][column] == ' '){
+                else if(old_board[row][column] == 'p' && board[row][column] == ' '){
                     $('#' + row + '_' + column).html('<img src="assets/images/whitetoempty.gif" alt="empty Sqaure"/>');
                 }
                 else if(old_board[row][column] == 'b' && board[row][column] == ' '){
                     $('#' + row + '_' + column).html('<img src="assets/images/blacktoempty.gif" alt="empty Sqaure"/>');
                 }
-                else if(old_board[row][column] == 'w' && board[row][column] == 'b'){
-                    $('#' + row + '_' + column).html('<img src="assets/images/whitetoblack.gif" alt="white Sqaure"/>');
+                else if(old_board[row][column] == 'p' && board[row][column] == 'b'){
+                    $('#' + row + '_' + column).html('<img src="assets/images/whitetoblack.gif" alt="purple Sqaure"/>');
                 }
-                else if(old_board[row][column] == 'b' && board[row][column] == 'w'){
+                else if(old_board[row][column] == 'b' && board[row][column] == 'p'){
                     $('#' + row + '_' + column).html('<img src="assets/images/blacktowhite.gif" alt="black Sqaure"/>');
                 }
                 else {
@@ -388,7 +388,7 @@ socket.on('game_update', function(payload){
         }
     }
     $('#blacksum').html(blacksum);
-    $('#whitesum').html(whitesum);
+    $('#purplesum').html(purplesum);
     old_board = board;
 
 });
